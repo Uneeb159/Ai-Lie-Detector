@@ -10,10 +10,10 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@google/genai": "^2.13.0",
     "framer-motion": "latest",
     "lucide-react": "latest",
     "next": "latest",
-    "openai": "^6.49.0",
     "react": "latest",
     "react-dom": "latest",
     "tesseract.js": "latest",

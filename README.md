@@ -24,7 +24,7 @@ The live URL must work without requiring a GitHub or Vercel login.
 - Review and edit OCR text before analysis.
 - Select sender type and requested action.
 - Redact emails, phone numbers, card-like numbers, OTPs, and verification codes.
-- Analyze messages with OpenAI GPT-4o mini using a custom system prompt.
+- Analyze messages with Google Gemini using a custom system prompt.
 - Return a risk score, verdict, confidence, detected tactics, categories, and evidence.
 - Explain which phrases triggered the analysis.
 - Provide a safe action plan and safe reply suggestions.
@@ -32,11 +32,11 @@ The live URL must work without requiring a GitHub or Vercel login.
 - View, reopen, and delete previous scans.
 - Browse a library of common scam patterns.
 - Adjust history, redaction, and sensitivity settings.
-- Use deterministic analysis as a fallback when no OpenAI API key is configured.
+- Use deterministic analysis as a fallback when no Gemini API key is configured.
 
 ## AI-powered feature
 
-SafeSignal sends the redacted message to OpenAI's GPT-4o mini model through the server-side `/api/analyze` route. The model identifies urgency, threats, payment pressure, impersonation, suspicious links, OTP theft, bank impersonation, delivery scams, fake jobs, romance pressure, secrecy, and guilt-tripping.
+SafeSignal sends the redacted message to Google's Gemini Flash model through the server-side `/api/analyze` route. The model identifies urgency, threats, payment pressure, impersonation, suspicious links, OTP theft, bank impersonation, delivery scams, fake jobs, romance pressure, secrecy, and guilt-tripping.
 
 The model must return structured JSON. The server validates the response with Zod before displaying it. The app does not claim that a message is definitely truthful or definitely a scam; it provides safety guidance and recommends official verification.
 
@@ -72,7 +72,7 @@ The model request is implemented in [`app/api/analyze/route.ts`](app/api/analyze
 
 ## Privacy and safety design
 
-- The OpenAI API key is used only on the server.
+- The Gemini API key is used only on the server.
 - The browser can redact sensitive information before analysis.
 - Scan history is stored in browser `localStorage`, not in a project database.
 - The API request uses `store: false`.
@@ -83,7 +83,7 @@ The model request is implemented in [`app/api/analyze/route.ts`](app/api/analyze
 ## Technologies and services
 
 - Next.js App Router, React, TypeScript, and Tailwind CSS
-- OpenAI API, GPT-4o mini, and the OpenAI JavaScript SDK
+- Google Gemini API, Gemini Flash, and the official `@google/genai` JavaScript SDK
 - Zod for request and model-output validation
 - Tesseract.js for browser-side screenshot OCR
 - Lucide React and Framer Motion
@@ -93,7 +93,7 @@ The model request is implemented in [`app/api/analyze/route.ts`](app/api/analyze
 ## Project structure
 
 ```text
-app/api/analyze/route.ts       Server-side OpenAI analysis endpoint
+app/api/analyze/route.ts       Server-side Gemini analysis endpoint
 app/scan/page.tsx              Message input and OCR upload
 app/results/[id]/page.tsx      Risk result and evidence
 app/history/page.tsx           Browser-local scan history
@@ -111,7 +111,7 @@ tests/                         Unit and browser tests
 
 ## Run locally
 
-Requirements: Node.js 18 or newer and an OpenAI API key for AI-powered analysis.
+Requirements: Node.js 18 or newer and a Gemini API key for AI-powered analysis.
 
 ```bash
 npm install
@@ -120,8 +120,8 @@ npm install
 Create `.env.local` in the project root:
 
 ```env
-OPENAI_API_KEY=your_real_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-3.6-flash
 ```
 
 Never commit `.env.local` or any real API key.
@@ -146,8 +146,8 @@ npm run test:e2e
 
 1. Push this project to a public GitHub repository.
 2. Import the repository into [Vercel](https://vercel.com/).
-3. In Vercel **Settings → Environment Variables**, add `OPENAI_API_KEY` with your real key.
-4. Add `OPENAI_MODEL` with the value `gpt-4o-mini`.
+3. In Vercel **Settings → Environment Variables**, add `GEMINI_API_KEY` with your Gemini key.
+4. Add `GEMINI_MODEL` with the value `gemini-3.6-flash`.
 5. Apply the variables to the Production environment.
 6. Deploy and test the generated URL in an incognito window.
 7. Confirm that the scan flow performs an AI analysis without login.
@@ -194,7 +194,7 @@ The following screenshots show the deployed app in action.
 - The app does not independently verify a sender's identity.
 - Browser-local history is lost if browser storage is cleared.
 - OCR currently focuses on English text.
-- The fallback analyzer is rule-based and is used when OpenAI is unavailable.
+- The fallback analyzer is rule-based and is used when Gemini is unavailable.
 
 ## Final submission checklist
 
@@ -202,8 +202,8 @@ The following screenshots show the deployed app in action.
 - [x] Repository opens in incognito without login.
 - [x] App is deployed at a public Vercel URL.
 - [x] Live URL opens without login.
-- [ ] Deployed app successfully performs OpenAI analysis after the Vercel key is configured.
-- [ ] `OPENAI_API_KEY` is configured in Vercel environment variables.
+- [ ] Deployed app successfully performs Gemini analysis after the Vercel key is configured.
+- [ ] `GEMINI_API_KEY` is configured in Vercel environment variables.
 - [x] No API key appears in GitHub.
 - [x] Real live URL replaced the placeholder above.
 - [x] Real GitHub URL replaced the placeholder above.
