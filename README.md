@@ -1,8 +1,6 @@
-# SafeSignal — AI Lie Detector
+# SafeSignal — AI Scam & Manipulation Analyzer
 
 SafeSignal is a privacy-conscious web app that helps people inspect suspicious text messages, emails, WhatsApp messages, and screenshots for scam and manipulation signals.
-
-> Before submitting, replace every item marked `TODO` with your real GitHub repository URL, live Vercel URL, and screenshots.
 
 ## The problem
 
@@ -14,9 +12,7 @@ The app is designed for students, families, older users, and anyone who wants he
 
 ## Live application
 
-<!-- TODO: Replace this URL after deploying to Vercel. -->
-
-[Open the live SafeSignal application](https://YOUR-PROJECT.vercel.app)
+[Open the live SafeSignal application](https://ai-lie-detector-snowy.vercel.app/scan)
 
 The live URL must work without requiring a GitHub or Vercel login.
 
@@ -172,33 +168,25 @@ git push -u origin main
 
 Change the repository visibility to **Public**. Test the repository URL in an incognito window; it must not ask graders to log in.
 
-<!-- TODO: Replace this URL with the real public repository URL. -->
-
 ## Public source repository
 
-[View SafeSignal on GitHub](https://github.com/YOUR-USERNAME/YOUR-REPOSITORY)
+[View SafeSignal on GitHub](https://github.com/Uneeb159/Ai-Lie-Detector)
 
 ## Screenshots
 
-Add at least three screenshots to `docs/screenshots/` and replace the placeholder files below.
+The following screenshots show the deployed app in action.
 
 ### Scan screen
 
-<!-- TODO: Add docs/screenshots/scan.png -->
-
-![SafeSignal scan screen](docs/screenshots/scan.png)
+![SafeSignal scan screen](Screenshot%202026-07-27%20143540.png)
 
 ### AI analysis result
 
-<!-- TODO: Add docs/screenshots/result.png -->
-
-![SafeSignal AI analysis result](docs/screenshots/result.png)
+![SafeSignal AI analysis result](Screenshot%202026-07-27%20143552.png)
 
 ### Evidence and safe actions
 
-<!-- TODO: Add docs/screenshots/evidence.png -->
-
-![SafeSignal evidence breakdown and safe actions](docs/screenshots/evidence.png)
+![SafeSignal evidence breakdown and safe actions](Screenshot%202026-07-27%20143613.png)
 
 ## Limitations
 
@@ -210,19 +198,19 @@ Add at least three screenshots to `docs/screenshots/` and replace the placeholde
 
 ## Final submission checklist
 
-- [ ] GitHub repository is public.
-- [ ] Repository opens in incognito without login.
-- [ ] App is deployed at a public Vercel URL.
-- [ ] Live URL opens without login.
-- [ ] Deployed app successfully performs AI analysis.
+- [x] GitHub repository is public.
+- [x] Repository opens in incognito without login.
+- [x] App is deployed at a public Vercel URL.
+- [x] Live URL opens without login.
+- [ ] Deployed app successfully performs OpenAI analysis after the Vercel key is configured.
 - [ ] `OPENAI_API_KEY` is configured in Vercel environment variables.
-- [ ] No API key appears in GitHub.
-- [ ] Real live URL replaced the placeholder above.
-- [ ] Real GitHub URL replaced the placeholder above.
-- [ ] At least three screenshots were added.
-- [ ] `npm test` passes.
-- [ ] `npm run build` passes.
-- [ ] README documents the problem, features, AI prompt, tools, setup, and deployment.
+- [x] No API key appears in GitHub.
+- [x] Real live URL replaced the placeholder above.
+- [x] Real GitHub URL replaced the placeholder above.
+- [x] At least three screenshots are included.
+- [ ] `npm test` passes in the final environment.
+- [ ] `npm run build` passes in the final environment.
+- [x] README documents the problem, features, AI prompt, tools, setup, and deployment.
 
 ## Final portal submission
 
