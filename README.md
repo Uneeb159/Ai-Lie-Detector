@@ -121,7 +121,7 @@ Create `.env.local` in the project root:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-3.6-flash
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
 Never commit `.env.local` or any real API key.
@@ -147,7 +147,7 @@ npm run test:e2e
 1. Push this project to a public GitHub repository.
 2. Import the repository into [Vercel](https://vercel.com/).
 3. In Vercel **Settings → Environment Variables**, add `GEMINI_API_KEY` with your Gemini key.
-4. Add `GEMINI_MODEL` with the value `gemini-3.6-flash`.
+4. Add `GEMINI_MODEL` with the value `gemini-2.5-flash`.
 5. Apply the variables to the Production environment.
 6. Deploy and test the generated URL in an incognito window.
 7. Confirm that the scan flow performs an AI analysis without login.
