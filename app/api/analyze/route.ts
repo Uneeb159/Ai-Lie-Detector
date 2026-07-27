@@ -4,6 +4,7 @@ import { analysisResultSchema, analyzeRequestSchema } from "@/lib/analysis-schem
 import { redactSensitiveText } from "@/lib/redaction";
 import { analyzeDeterministically } from "@/lib/risk-scoring";
 import { SCAM_ANALYST_SYSTEM_PROMPT } from "@/lib/ai-prompt";
+import type { RequestedAction, SenderType } from "@/types/analysis";
 
 const gemini = process.env.GEMINI_API_KEY
   ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
@@ -92,6 +93,12 @@ const analysisJsonSchema = {
 } as const;
 
 export async function POST(request: Request) {
+  let analyzedText = "";
+  let analyzedRedactedText = "";
+  let analyzedSenderType: SenderType = "unknown";
+  let analyzedRequestedAction: RequestedAction = "none";
+  let analyzedSensitivity: "low" | "balanced" | "high" = "balanced";
+
   try {
     const body = await request.json();
     const parsed = analyzeRequestSchema.safeParse(body);
@@ -101,6 +108,10 @@ export async function POST(request: Request) {
     }
 
     const text = parsed.data.text.trim();
+    analyzedText = text;
+    analyzedSenderType = parsed.data.senderType;
+    analyzedRequestedAction = parsed.data.requestedAction;
+    analyzedSensitivity = parsed.data.settings.sensitivity;
     if (!text) {
       return NextResponse.json({ error: "Paste a message first." }, { status: 400 });
     }
@@ -108,6 +119,7 @@ export async function POST(request: Request) {
     const redactedText = parsed.data.settings.redactBeforeAnalysis
       ? redactSensitiveText(text)
       : text;
+    analyzedRedactedText = redactedText;
 
     // Keep the existing analyzer available for local development and outages.
     if (!gemini) {
@@ -176,9 +188,19 @@ ${redactedText}
     return NextResponse.json(parsedResult.data);
   } catch (error) {
     console.error("AI analysis failed:", error);
-    return NextResponse.json(
-      { error: "AI analysis could not finish. Please try again." },
-      { status: 500 }
-    );
+    // Keep the public scan flow usable when the free-tier provider is
+    // unavailable, rate-limited, or temporarily rejects a request.
+    const fallback = analyzeDeterministically({
+      text: analyzedText,
+      redactedText: analyzedRedactedText || analyzedText,
+      senderType: analyzedSenderType,
+      requestedAction: analyzedRequestedAction,
+      sensitivity: analyzedSensitivity
+    });
+    return NextResponse.json({
+      ...fallback,
+      disclaimer:
+        "Gemini was unavailable for this scan, so local safety guidance was used. Verify important requests through official channels."
+    });
   }
 }
