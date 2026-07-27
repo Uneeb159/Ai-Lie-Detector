@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+test-results/
+coverage/
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs and local tooling output
+*.log
+.DS_Store
+Thumbs.db
+

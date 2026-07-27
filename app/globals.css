@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --surface: #131313;
+  --graphite: #121212;
+  --panel: #1e1e1e;
+  --signal: #00f0ff;
+  --danger: #ff4b4b;
+  --amber: #ffb800;
+  --safe: #00c853;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(rgba(0, 240, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.025) 1px, transparent 1px),
+    radial-gradient(circle at 20% 10%, rgba(0, 240, 255, 0.09), transparent 26rem),
+    radial-gradient(circle at 90% 80%, rgba(138, 43, 226, 0.08), transparent 28rem),
+    #121212;
+  background-size: 48px 48px, 48px 48px, auto, auto, auto;
+  color: #e5e2e1;
+}
+
+button,
+textarea,
+select,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
