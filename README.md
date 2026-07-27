@@ -162,7 +162,7 @@ git init
 git add .
 git commit -m "Ship SafeSignal AI scam analyzer"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+git remote add origin https://github.com/Uneeb159/Ai-Lie-Detector.git
 git push -u origin main
 ```
 
